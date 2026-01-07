@@ -8,6 +8,24 @@ import (
 // zipArrays returns array of arrays made of harnessed elements of passed slices
 func zipArrays(arrays ...[]int) [][]int {
 	zipped := make([][]int, 0)
+	zipLen := len(arrays)
+	if zipLen == 0 {
+		return zipped
+	}
+	zipCount := len(arrays[0])
+	for _, a := range arrays {
+		cnt := len(a)
+		if cnt < zipCount {
+			zipCount = cnt
+		}
+	}
+	for i := range zipCount {
+		arr := make([]int, 0, zipLen)
+		for _, a := range arrays {
+			arr = append(arr, a[i])
+		}
+		zipped = append(zipped, arr)
+	}
 	return zipped
 }
 

@@ -4,6 +4,17 @@ import "testing"
 
 // binarySearch returns index of target value in sorted sequence
 func binarySearch(seq []int, target int) int {
+	left, right := 0, len(seq)-1
+	for left <= right {
+		mid := left + (right-left)/2
+		if seq[mid] == target {
+			return mid
+		} else if seq[mid] < target {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
 	return -1
 }
 
