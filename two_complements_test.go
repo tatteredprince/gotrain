@@ -19,22 +19,6 @@ func twoComplementsTestHelper(t *testing.T, seq []int, target int, expect bool) 
 	}
 }
 
-func expectFailure(t *testing.T, target int, seq []int) {
-	t.Helper()
-	t.Logf("expecting %d to not have complements for %d", seq, target)
-	if hasTwoComplements(target, seq) {
-		t.Fatalf("%d has complement for %d", target, seq)
-	}
-}
-
-func expectSuccess(t *testing.T, target int, seq []int) {
-	t.Helper()
-	t.Logf("expecting %d to have complements for %d", seq, target)
-	if !hasTwoComplements(target, seq) {
-		t.Fatalf("%d has no complement for %d", target, seq)
-	}
-}
-
 func TestTwoComplements(t *testing.T) {
 	t.Run("Binary set", func(t *testing.T) { twoComplementsTestHelper(t, []int{0, 1}, 1, true) })
 	t.Run("Continious binary set", func(t *testing.T) { twoComplementsTestHelper(t, []int{1, 0, 1, 0, 1, 0, 1}, 9, false) })
