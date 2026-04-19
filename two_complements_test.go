@@ -21,7 +21,9 @@ func twoComplementsTestHelper(t *testing.T, seq []int, target int, expect bool) 
 
 func TestTwoComplements(t *testing.T) {
 	t.Run("Binary set", func(t *testing.T) { twoComplementsTestHelper(t, []int{0, 1}, 1, true) })
-	t.Run("Continious binary set", func(t *testing.T) { twoComplementsTestHelper(t, []int{1, 0, 1, 0, 1, 0, 1}, 9, false) })
+	t.Run("Continious binary set", func(t *testing.T) {
+		twoComplementsTestHelper(t, []int{1, 0, 1, 0, 1, 0, 1}, 9, false)
+	})
 	t.Run("Empty set", func(t *testing.T) { twoComplementsTestHelper(t, []int{}, 5, false) })
 	t.Run("Zeroes set", func(t *testing.T) { twoComplementsTestHelper(t, []int{0, 0, 0, 0, 0}, 0, true) })
 	t.Run("No complement", func(t *testing.T) { twoComplementsTestHelper(t, []int{3, 4, 5, 6, 7}, 3, false) })

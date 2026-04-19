@@ -13,8 +13,8 @@ func zipArrays(arrays ...[]int) [][]int {
 
 func zipArraysTestHelper(t *testing.T, zipped [][]int, arrays ...[]int) {
 	t.Helper()
-	got := zipArrays(arrays...)
-	if !reflect.DeepEqual(got, zipped) {
+	t.Logf("zipping arrays %v", arrays)
+	if got := zipArrays(arrays...); !reflect.DeepEqual(got, zipped) {
 		t.Fatalf("got %v but expected %v", got, zipped)
 	}
 }

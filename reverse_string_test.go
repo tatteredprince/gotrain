@@ -9,8 +9,8 @@ func reverseString(str string) string {
 
 func reverseStringTestHelper(t *testing.T, str string, expect string) {
 	t.Helper()
-	got := reverseString(str)
-	if got != expect {
+	t.Logf("reverse '%s'", str)
+	if got := reverseString(str); got != expect {
 		t.Fatalf("got '%s' but expected '%s'", got, expect)
 	}
 }
