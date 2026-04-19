@@ -2,6 +2,11 @@ package main
 
 import "testing"
 
+// monotonicSequence indicates that sequence passed monotonically increases or descreases
+func monotonicSequence(seq []int) bool {
+	return false
+}
+
 func expectFailure(t *testing.T, seq []int) {
 	t.Helper()
 	t.Logf("expecting non-monotonic %v", seq)
