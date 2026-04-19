@@ -4,7 +4,12 @@ import "testing"
 
 // reverseString reverses string
 func reverseString(str string) string {
-	return ""
+	reversed := ""
+	chars := []rune(str)
+	for i := len(chars) - 1; i >= 0; i-- {
+		reversed += string(chars[i])
+	}
+	return reversed
 }
 
 func reverseStringTestHelper(t *testing.T, str string, expect string) {
