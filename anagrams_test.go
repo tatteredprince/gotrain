@@ -20,6 +20,7 @@ func TestAnagrams(t *testing.T) {
 	t.Run("Compare empty string", func(t *testing.T) { anagramsTestHelper(t, "ABC", "", false) })
 	t.Run("True anagrams", func(t *testing.T) { anagramsTestHelper(t, "ABC", "BCA", true) })
 	t.Run("Unnecessary letter", func(t *testing.T) { anagramsTestHelper(t, "XYZ", "WYXZ", false) })
+	t.Run("Music band", func(t *testing.T) { anagramsTestHelper(t, "ABBA", "BABA", true) })
 	t.Run("Several unnecessary letters", func(t *testing.T) { anagramsTestHelper(t, "XYZ", "YZXXX", false) })
 	t.Run("Unequal strings", func(t *testing.T) { anagramsTestHelper(t, "XYZ", "LOL", false) })
 }
