@@ -4,7 +4,31 @@ import "testing"
 
 // areAnagrams indicates that two strings are anagrams
 func areAnagrams(a, b string) bool {
-	return false
+	amap := make(map[byte]int, 0)
+	for i := 0; i < len(a); i++ {
+		if _, ok := amap[a[i]]; ok {
+			amap[a[i]]++
+		} else {
+			amap[a[i]] = 1
+		}
+	}
+	bmap := make(map[byte]int, 0)
+	for i := 0; i < len(b); i++ {
+		if _, ok := bmap[b[i]]; ok {
+			bmap[b[i]]++
+		} else {
+			bmap[b[i]] = 1
+		}
+	}
+	if len(amap) != len(bmap) {
+		return false
+	}
+	for ch, cnt := range amap {
+		if bmap[ch] != cnt {
+			return false
+		}
+	}
+	return true
 }
 
 func anagramsTestHelper(t *testing.T, a, b string, expect bool) {
