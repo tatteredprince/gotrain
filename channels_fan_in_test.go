@@ -43,6 +43,8 @@ func fanInTestHelper(t *testing.T, values []int) {
 	for num := range fanIn(chans...) {
 		got = append(got, num)
 	}
+	slices.Sort(got)
+	slices.Sort(values)
 	if !slices.Equal(got, values) {
 		t.Fatalf("expected %v but got %v", values, got)
 	}
