@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-// fanIn returns channels that multiplexes values from input channels
+// fanIn returns channel that multiplexes values from input channels
 func fanIn(chans ...chan int) <-chan int {
 	out := make(chan int)
 	wg := sync.WaitGroup{}
