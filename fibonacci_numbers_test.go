@@ -6,7 +6,7 @@ import (
 )
 
 // fibonacciNumbers returns Fibonacci numbers
-func fibonacciNumbers(first, seconds, count int) []int {
+func fibonacciNumbers(first, second, count int) []int {
 	nums := []int{}
 	return nums
 }
