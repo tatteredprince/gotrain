@@ -8,6 +8,13 @@ import (
 // fibonacciNumbers returns Fibonacci numbers
 func fibonacciNumbers(first, second, count int) []int {
 	nums := []int{}
+	fibo := func() int {
+		first, second = second, first+second
+		return second
+	}
+	for range count {
+		nums = append(nums, fibo())
+	}
 	return nums
 }
 
