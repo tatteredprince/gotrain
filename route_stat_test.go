@@ -17,10 +17,10 @@ type RouteStat struct {
 	Once           int
 }
 
-// AnalyzeRoutes calculates routes' statistics from argument: most frequent
+// analyzeRoutes calculates routes' statistics from argument: most frequent
 // routes and their count, number of various routes and number of unique routes.
 // Most frequent routes should be selected in order of appearance.
-func AnalyzeRoutes(routes []Route) RouteStat {
+func analyzeRoutes(routes []Route) RouteStat {
 	routesDigest := make(map[Route]int)
 	orderedRoutes := make([]Route, 0, len(routes))
 	for _, route := range routes {
@@ -59,7 +59,7 @@ func AnalyzeRoutes(routes []Route) RouteStat {
 
 func RouteStatTestHelper(t *testing.T, routes []Route, expect RouteStat) {
 	t.Helper()
-	got := AnalyzeRoutes(routes)
+	got := analyzeRoutes(routes)
 	t.Logf("got %v but expect %v", got, expect)
 	if !reflect.DeepEqual(got, expect) {
 		t.Fatal()
