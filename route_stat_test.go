@@ -5,13 +5,13 @@ import (
 	"testing"
 )
 
-type Route struct {
+type route struct {
 	From string
 	To   string
 }
 
-type RouteStat struct {
-	MaxRoutes      []Route
+type routeStat struct {
+	MaxRoutes      []route
 	MaxRoutesCount int
 	Uniq           int
 	Once           int
@@ -20,9 +20,9 @@ type RouteStat struct {
 // analyzeRoutes calculates routes' statistics from argument: most frequent
 // routes and their count, number of various routes and number of unique routes.
 // Most frequent routes should be selected in order of appearance.
-func analyzeRoutes(routes []Route) RouteStat {
-	routesDigest := make(map[Route]int)
-	orderedRoutes := make([]Route, 0, len(routes))
+func analyzeRoutes(routes []route) routeStat {
+	routesDigest := make(map[route]int)
+	orderedRoutes := make([]route, 0, len(routes))
 	for _, route := range routes {
 		if _, ok := routesDigest[route]; ok {
 			routesDigest[route]++
@@ -32,24 +32,24 @@ func analyzeRoutes(routes []Route) RouteStat {
 		}
 	}
 	var (
-		maxRoutes      []Route
+		maxRoutes      []route
 		maxRoutesCount = 0
 		once           = 0
 	)
-	for _, route := range orderedRoutes {
-		count := routesDigest[route]
+	for _, orderedRoute := range orderedRoutes {
+		count := routesDigest[orderedRoute]
 		if count == 1 {
 			once += 1
 		}
 		if count > maxRoutesCount {
-			maxRoutes = make([]Route, 0, len(routesDigest))
-			maxRoutes = append(maxRoutes, route)
+			maxRoutes = make([]route, 0, len(routesDigest))
+			maxRoutes = append(maxRoutes, orderedRoute)
 			maxRoutesCount = count
 		} else if count == maxRoutesCount {
-			maxRoutes = append(maxRoutes, route)
+			maxRoutes = append(maxRoutes, orderedRoute)
 		}
 	}
-	return RouteStat{
+	return routeStat{
 		MaxRoutes:      maxRoutes,
 		MaxRoutesCount: len(maxRoutes),
 		Uniq:           len(routesDigest),
@@ -57,7 +57,7 @@ func analyzeRoutes(routes []Route) RouteStat {
 	}
 }
 
-func RouteStatTestHelper(t *testing.T, routes []Route, expect RouteStat) {
+func RouteStatTestHelper(t *testing.T, routes []route, expect routeStat) {
 	t.Helper()
 	got := analyzeRoutes(routes)
 	t.Logf("got %v but expect %v", got, expect)
@@ -70,14 +70,14 @@ func TestRouteStat(t *testing.T) {
 	t.Run("Simple routes", func(t *testing.T) {
 		RouteStatTestHelper(
 			t,
-			[]Route{{"ABC", "XYZ"}, {"ABC", "XYZ"}, {"DEF", "ABC"}},
-			RouteStat{[]Route{{"ABC", "XYZ"}}, 1, 2, 1},
+			[]route{{"ABC", "XYZ"}, {"ABC", "XYZ"}, {"DEF", "ABC"}},
+			routeStat{[]route{{"ABC", "XYZ"}}, 1, 2, 1},
 		)
 	})
 	t.Run("Complex routes", func(t *testing.T) {
 		RouteStatTestHelper(
 			t,
-			[]Route{
+			[]route{
 				{"ABC", "XYZ"},
 				{"XYZ", "ABC"},
 				{"ABC", "XYZ"},
@@ -86,21 +86,21 @@ func TestRouteStat(t *testing.T) {
 				{"DEF", "ABC"},
 				{"DEF", "ABC"},
 			},
-			RouteStat{[]Route{{"ABC", "XYZ"}, {"DEF", "ABC"}}, 2, 3, 1},
+			routeStat{[]route{{"ABC", "XYZ"}, {"DEF", "ABC"}}, 2, 3, 1},
 		)
 	})
 	t.Run("Duplicate route", func(t *testing.T) {
 		RouteStatTestHelper(
 			t,
-			[]Route{{"ABC", "DEF"}, {"ABC", "DEF"}, {"ABC", "XYZ"}, {"ABC", "XYZ"}},
-			RouteStat{[]Route{{"ABC", "DEF"}, {"ABC", "XYZ"}}, 2, 2, 0},
+			[]route{{"ABC", "DEF"}, {"ABC", "DEF"}, {"ABC", "XYZ"}, {"ABC", "XYZ"}},
+			routeStat{[]route{{"ABC", "DEF"}, {"ABC", "XYZ"}}, 2, 2, 0},
 		)
 	})
 	t.Run("Various routes", func(t *testing.T) {
 		RouteStatTestHelper(
 			t,
-			[]Route{{"ABC", "XYZ"}, {"XYZ", "ABC"}, {"DEF", "ABC"}, {"DEF", "XYZ"}},
-			RouteStat{[]Route{{"ABC", "XYZ"}, {"XYZ", "ABC"}, {"DEF", "ABC"}, {"DEF", "XYZ"}}, 4, 4, 4},
+			[]route{{"ABC", "XYZ"}, {"XYZ", "ABC"}, {"DEF", "ABC"}, {"DEF", "XYZ"}},
+			routeStat{[]route{{"ABC", "XYZ"}, {"XYZ", "ABC"}, {"DEF", "ABC"}, {"DEF", "XYZ"}}, 4, 4, 4},
 		)
 	})
 }
