@@ -36,7 +36,7 @@ func TestCatalogSearch(t *testing.T) {
 						{
 							"TVs",
 							[]category{
-								{"CRT", []category{}}, {"IPS", []category{}}, {"IPS", []category{}},
+								{"CRT", []category{}}, {"IPS", []category{}}, {"OLED", []category{}},
 							},
 						},
 						{
@@ -50,7 +50,7 @@ func TestCatalogSearch(t *testing.T) {
 					"Plants",
 					[]category{
 						{"Indoor", []category{}},
-						{"Gardern", []category{}},
+						{"Garden", []category{}},
 					},
 				},
 			},
