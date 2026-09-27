@@ -14,6 +14,7 @@ func anagramsSubstrTestHelper(t *testing.T, str, anagram string, expect bool) {
 	if got != expect {
 		t.Fatal()
 	}
+	b := true
 }
 
 func TestAnagramsSubstr(t *testing.T) {
