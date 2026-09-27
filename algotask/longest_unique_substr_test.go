@@ -1,6 +1,8 @@
 package main
 
-func longestSubstrWoReapeats(str string) int {
+// longestUniqueSubstr returns number of characters in lengthiest substring with
+// non-repeating characters.
+func longestUniqueSubstr(str string) int {
 	longestSubstr := 0
 	chars := make(map[byte]struct{}, 0)
 	for i := 0; i < len(str); i++ {
