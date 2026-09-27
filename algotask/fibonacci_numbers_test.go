@@ -18,6 +18,10 @@ func fibonacciNumbers(first, second, count int) []int {
 	return nums
 }
 
+// fibonacciNumbersRangefunc returns Fibonaccu numbers via Rangefunc
+func fibonacciNumbersRangefunc() {
+}
+
 func fibonacciNumbersTestHelper(t *testing.T, first, second, count int, expect []int) {
 	t.Helper()
 	t.Logf("calculate %d fibonacci numbers after %d and %d", count, first, second)
