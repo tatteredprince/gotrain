@@ -10,14 +10,12 @@ import (
 func fanIn(inputs ...chan int) <-chan int {
 	output := make(chan int)
 	wg := sync.WaitGroup{}
-	wg.Add(len(inputs))
 	for _, ch := range inputs {
-		go func() {
-			defer wg.Done()
+		wg.Go(func() {
 			for value := range ch {
 				output <- value
 			}
-		}()
+		})
 	}
 	go func() {
 		wg.Wait()
