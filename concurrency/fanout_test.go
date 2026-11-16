@@ -6,21 +6,19 @@ import (
 	"testing"
 )
 
-// fanOut returns output channels filled with values from input.
+// fanOut returns num output channels filled with values from input.
 func fanOut(input <-chan int, num int) []chan int {
 	output := make([]chan int, num)
 	for i := range num {
 		output[i] = make(chan int)
 	}
 	wg := sync.WaitGroup{}
-	wg.Add(num)
 	for i := range num {
-		go func() {
-			defer wg.Done()
+		wg.Go(func() {
 			for val := range input {
 				output[i] <- val
 			}
-		}()
+		})
 	}
 	go func() {
 		wg.Wait()
@@ -48,14 +46,12 @@ func TestFanOut(t *testing.T) {
 		// Gather finished jobs into output
 		output := make(chan int)
 		wg := sync.WaitGroup{}
-		wg.Add(numWorkers)
 		for i := range numWorkers {
-			go func() {
-				defer wg.Done()
+			wg.Go(func() {
 				for val := range chans[i] {
 					output <- val
 				}
-			}()
+			})
 		}
 		go func() {
 			wg.Wait()
