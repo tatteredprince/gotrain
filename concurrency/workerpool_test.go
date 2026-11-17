@@ -8,8 +8,7 @@ import (
 )
 
 // worker processes job and sends its results.
-func worker(jobId int, jobs <-chan int, results chan<- int, wg *sync.WaitGroup) {
-	defer wg.Done()
+func worker(jobId int, jobs <-chan int, results chan<- int) {
 	for j := range jobs {
 		fmt.Printf("start worker #%d\n", jobId)
 		results <- j * j
@@ -23,9 +22,8 @@ func TestWorkerPool(t *testing.T) {
 		jobs := make(chan int, jobsCount)
 		results := make(chan int, jobsCount)
 		wg := sync.WaitGroup{}
-		wg.Add(workersCount)
 		for w := range workersCount {
-			go worker(w, jobs, results, &wg)
+			wg.Go(func() { worker(w, jobs, results) })
 		}
 		for j := range jobsCount {
 			jobs <- j
